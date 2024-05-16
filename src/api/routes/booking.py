@@ -2,23 +2,23 @@ import fastapi
 
 router = fastapi.APIRouter(prefix="/bookings",tags=['bookings'])
 
-@router.get()
+@router.get(path="")
 async def get_bookings():
     pass
 
-@router.get()
+@router.get(path="/{id}")
 async def get_booking():
     pass
 
-@router.post()
+@router.post(path="")
 async def create_booking():
     pass
 
-@router.patch()
+@router.patch(path="/{id}")
 async def update_booking():
     pass
 
-@router.delete()
+@router.delete(path="")
 async def delete_booking():
     pass
 

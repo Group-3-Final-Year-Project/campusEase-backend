@@ -12,10 +12,8 @@ from src.config.manager import settings
 
 class AsyncDatabase:
     def __init__(self):
-        self.postgres_uri: pydantic.PostgresDsn = pydantic.PostgresDsn(
-            url=f"{settings.DB_POSTGRES_SCHEMA}://{settings.DB_POSTGRES_USERNAME}:{settings.DB_POSTGRES_PASSWORD}@{settings.DB_POSTGRES_HOST}:{settings.DB_POSTGRES_PORT}/{settings.DB_POSTGRES_NAME}",
-            scheme=settings.DB_POSTGRES_SCHEMA,
-        )
+        self.postgres_uri: pydantic.PostgresDsn  = f"{settings.DB_POSTGRES_SCHEMA}://{settings.DB_POSTGRES_USERNAME}:{settings.DB_POSTGRES_PASSWORD}@{settings.DB_POSTGRES_HOST}:{settings.DB_POSTGRES_PORT}/{settings.DB_POSTGRES_NAME}"
+            # scheme=settings.DB_POSTGRES_SCHEMA,
         self.async_engine: SQLAlchemyAsyncEngine = create_sqlalchemy_async_engine(
             url=self.set_async_db_uri,
             echo=settings.IS_DB_ECHO_LOG,

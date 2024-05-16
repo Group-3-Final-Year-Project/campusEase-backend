@@ -7,7 +7,7 @@ from src.models.schemas.service import ServiceInCreate,ServiceInUpdate
 from src.repository.crud.base import BaseCRUDRepository
 
 class ServiceCRUDRepository(BaseCRUDRepository):
-    async def create_service(self,service_create:ServiceCreate) -> Service:
+    async def create_service(self,service_create:ServiceInCreate) -> Service:
         # new_service = Service()
         pass
 

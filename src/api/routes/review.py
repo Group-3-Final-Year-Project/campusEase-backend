@@ -3,22 +3,22 @@ import pydantic
 
 router = fastapi.APIRouter(prefix='/reviews',tags=['reviews'])
 
-@router.get()
+@router.get(path="")
 async def get_reviews():
     pass
 
-@router.get()
+@router.get(path="/{id}")
 async def get_review():
     pass
 
-@router.post()
+@router.post(path="")
 async def create_review():
     pass
 
-@router.patch()
+@router.patch(path="/{id}")
 async def update_review():
     pass
 
-@router.delete()
+@router.delete(path="")
 async def delete_review():
     pass

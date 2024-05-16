@@ -39,6 +39,7 @@ async def signup(
             token=access_token,
             username=new_account.username,
             email=new_account.email,  # type: ignore
+            phone_number=new_account.phone_number,
             is_verified=new_account.is_verified,
             is_active=new_account.is_active,
             is_logged_in=new_account.is_logged_in,

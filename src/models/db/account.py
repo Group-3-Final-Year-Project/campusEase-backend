@@ -9,7 +9,7 @@ from src.repository.table import Base
 class Account(Base):  # type: ignore
     __tablename__ = "account"
 
-    id: SQLAlchemyMapped[str] = sqlalchemy_mapped_column(primary_key=True)
+    id: SQLAlchemyMapped[int] = sqlalchemy_mapped_column(primary_key=True,autoincrement=True,nullable=False)
     user_type: SQLAlchemyMapped[str] = sqlalchemy_mapped_column(sqlalchemy.String(length = 64), default="user",nullable=False)
     username: SQLAlchemyMapped[str] = sqlalchemy_mapped_column(
         sqlalchemy.String(length=64), nullable=False, unique=True

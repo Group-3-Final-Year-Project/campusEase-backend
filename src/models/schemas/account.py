@@ -16,6 +16,7 @@ class AccountInUpdate(BaseSchemaModel):
     username: str | None
     email: str | None
     password: str | None
+    phone_number:str | None
 
 
 class AccountInLogin(BaseSchemaModel):
@@ -28,6 +29,7 @@ class AccountWithToken(BaseSchemaModel):
     token: str
     username: str
     email: pydantic.EmailStr
+    phone_number:str | None
     is_verified: bool
     is_active: bool
     is_logged_in: bool

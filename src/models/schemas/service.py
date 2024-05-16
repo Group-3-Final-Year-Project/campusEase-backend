@@ -5,3 +5,6 @@ class ServiceInCreate(BaseSchemaModel):
 
 class ServiceInUpdate(BaseSchemaModel):
     pass
+
+class ServiceInResponse(BaseSchemaModel):
+    pass
