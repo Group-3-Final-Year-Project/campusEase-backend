@@ -21,4 +21,3 @@ async def update_booking():
 @router.delete(path="")
 async def delete_booking():
     pass
-
