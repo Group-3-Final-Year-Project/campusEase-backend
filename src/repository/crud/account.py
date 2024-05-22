@@ -39,7 +39,7 @@ class AccountCRUDRepository(BaseCRUDRepository):
         query = await self.async_session.execute(statement=stmt)
 
         if not query:
-            raise EntityDoesNotExist("Account with id `{id}` does not exist!")
+            raise EntityDoesNotExist(f"Account with id `{id}` does not exist!")
 
         return query.scalar()  # type: ignore
 
@@ -48,7 +48,7 @@ class AccountCRUDRepository(BaseCRUDRepository):
         query = await self.async_session.execute(statement=stmt)
 
         if not query:
-            raise EntityDoesNotExist("Account with username `{username}` does not exist!")
+            raise EntityDoesNotExist(f"Account with username `{username}` does not exist!")
 
         return query.scalar()  # type: ignore
 
@@ -57,7 +57,7 @@ class AccountCRUDRepository(BaseCRUDRepository):
         query = await self.async_session.execute(statement=stmt)
 
         if not query:
-            raise EntityDoesNotExist("Account with email `{email}` does not exist!")
+            raise EntityDoesNotExist(f"Account with email `{email}` does not exist!")
 
         return query.scalar()  # type: ignore
 

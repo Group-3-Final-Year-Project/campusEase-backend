@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   db:
@@ -39,7 +39,7 @@ services:
     restart: always
     build:
       dockerfile: Dockerfile
-      context: ./backend/
+      context: ./
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - DEBUG=${DEBUG}
@@ -73,7 +73,7 @@ services:
       - HASHING_ALGORITHM_LAYER_2=${HASHING_ALGORITHM_LAYER_2}
       - HASHING_SALT=${HASHING_SALT}
     volumes:
-      - ./backend/:/usr/backend/
+      - ./:/usr/
     expose:
       - 8000
     ports:

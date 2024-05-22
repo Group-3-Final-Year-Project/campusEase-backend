@@ -1,0 +1,33 @@
+# Python related code
+
+\*.py @Solo0722
+
+# Java Script related code
+
+_.tsx @Solo0722
+_.ts @Solo0722
+\*.cjs @Solo0722
+
+# HTML & CSS related code
+
+_.html @Solo0722
+_.css @Solo0722
+\*.scss @Solo0722
+
+# JSON related code
+
+\*.json @Solo0722
+
+# DevOps related code
+
+_.yml @Solo0722
+_.yaml @Solo0722
+
+# Terraform
+
+\*.tf @Solo0722
+
+# Docker related code
+
+Dockerfile @Solo0722
+\*.prod @Solo0722

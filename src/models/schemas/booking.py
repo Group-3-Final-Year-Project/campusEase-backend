@@ -5,3 +5,6 @@ class BookingInCreate(BaseSchemaModel):
 
 class BookingInUpdate(BaseSchemaModel):
     pass
+
+class BookingInResponse(BaseSchemaModel):
+    pass

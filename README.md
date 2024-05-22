@@ -75,7 +75,7 @@ This backend application is setup with `Docker`.
 
    ```shell
     # Make sure you are in the ROOT project directory
-    chmod +x backend/entrypoint.sh
+    chmod +x entrypoint.sh
 
     docker-compose build
     docker-compose up
