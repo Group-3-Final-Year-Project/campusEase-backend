@@ -3,7 +3,7 @@ asgi_lifespan
 argon2_cffi
 asyncio
 asyncpg
-bcrypt
+bcrypt==4.0.1
 black
 colorama
 email-validator

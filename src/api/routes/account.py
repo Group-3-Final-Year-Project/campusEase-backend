@@ -35,7 +35,12 @@ async def get_accounts(
                 token=access_token,
                 username=db_account.username,
                 email=db_account.email,  # type: ignore
-                is_verified=db_account.is_verified,
+                phone_number=db_account.phone_number,
+                user_type=db_account.user_type,
+                location=db_account.location,
+                profile_picture=db_account.profile_picture,
+                is_email_verified=db_account.is_email_verified,
+                is_phone_verified=db_account.is_phone_verified,
                 is_active=db_account.is_active,
                 is_logged_in=db_account.is_logged_in,
                 created_at=db_account.created_at,
@@ -67,10 +72,15 @@ async def get_account(
     return AccountInResponse(
         id=db_account.id,
         authorized_account=AccountWithToken(
-            token=access_token,
+             token=access_token,
             username=db_account.username,
             email=db_account.email,  # type: ignore
-            is_verified=db_account.is_verified,
+            phone_number=db_account.phone_number,
+            user_type=db_account.user_type,
+            location=db_account.location,
+            profile_picture=db_account.profile_picture,
+            is_email_verified=db_account.is_email_verified,
+            is_phone_verified=db_account.is_phone_verified,
             is_active=db_account.is_active,
             is_logged_in=db_account.is_logged_in,
             created_at=db_account.created_at,
@@ -87,14 +97,17 @@ async def get_account(
 )
 async def update_account(
     query_id: int,
-    update_username: str | None = None,
-    update_email: pydantic.EmailStr | None = None,
-    update_password: str | None = None,
+    account_update:AccountInUpdate,
     account_repo: AccountCRUDRepository = fastapi.Depends(get_repository(repo_type=AccountCRUDRepository)),
 ) -> AccountInResponse:
-    account_update = AccountInUpdate(username=update_username, email=update_email, password=update_password)
     try:
-        updated_db_account = await account_repo.update_account_by_id(id=query_id, account_update=account_update)
+
+        updated_data = account_update.dict(exclude_unset=True)
+
+        updated_data.update({key: value for key, value in account_update.dict().items() if value is not None})
+
+       
+        updated_db_account = await account_repo.update_account_by_id(id=query_id, account_update=AccountInUpdate(**updated_data))
 
     except EntityDoesNotExist:
         raise await http_404_exc_id_not_found_request(id=query_id)
@@ -106,8 +119,13 @@ async def update_account(
         authorized_account=AccountWithToken(
             token=access_token,
             username=updated_db_account.username,
+            user_type=updated_db_account.user_type,
             email=updated_db_account.email,  # type: ignore
-            is_verified=updated_db_account.is_verified,
+            phone_number=updated_db_account.phone_number,
+            location=updated_db_account.location,
+            profile_picture=updated_db_account.profile_picture,
+            is_email_verified=updated_db_account.is_email_verified,
+            is_phone_verified=updated_db_account.is_phone_verified,
             is_active=updated_db_account.is_active,
             is_logged_in=updated_db_account.is_logged_in,
             created_at=updated_db_account.created_at,

@@ -14,7 +14,7 @@ from src.utilities.exceptions.password import PasswordDoesNotMatch
 
 class AccountCRUDRepository(BaseCRUDRepository):
     async def create_account(self, account_create: AccountInCreate) -> Account:
-        new_account = Account(username=account_create.username, email=account_create.email, is_logged_in=True)
+        new_account = Account(username=account_create.username, email=account_create.email,phone_number=account_create.phone_number,user_type=account_create.user_type, is_logged_in=True)
 
         new_account.set_hash_salt(hash_salt=pwd_generator.generate_salt)
         new_account.set_hashed_password(
@@ -90,9 +90,25 @@ class AccountCRUDRepository(BaseCRUDRepository):
 
         if new_account_data["username"]:
             update_stmt = update_stmt.values(username=new_account_data["username"])
+        if new_account_data["phone_number"]:
+            update_stmt = update_stmt.values(phone_number=new_account_data["phone_number"])
 
         if new_account_data["email"]:
-            update_stmt = update_stmt.values(username=new_account_data["email"])
+            update_stmt = update_stmt.values(email=new_account_data["email"])
+        if new_account_data["user_type"]:
+            update_stmt = update_stmt.values(user_type=new_account_data["user_type"])
+        if new_account_data["location"]:
+            update_stmt = update_stmt.values(location=new_account_data["location"])
+        if new_account_data["profile_picture"]:
+            update_stmt = update_stmt.values(profile_picture=new_account_data["profile_picture"])
+        if new_account_data["is_email_verified"]:
+            update_stmt = update_stmt.values(is_email_verified=new_account_data["is_email_verified"])
+        if new_account_data["is_phone_verified"]:
+            update_stmt = update_stmt.values(is_phone_verified=new_account_data["is_phone_verified"])
+        if new_account_data["is_active"]:
+            update_stmt = update_stmt.values(is_active=new_account_data["is_active"])
+        if new_account_data["is_logged_in"]:
+            update_stmt = update_stmt.values(is_logged_in=new_account_data["is_logged_in"])
 
         if new_account_data["password"]:
             update_account.set_hash_salt(hash_salt=pwd_generator.generate_salt)  # type: ignore
