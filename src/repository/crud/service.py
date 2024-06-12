@@ -9,10 +9,11 @@ from src.utilities.exceptions.database import EntityAlreadyExists, EntityDoesNot
 
 class ServiceCRUDRepository(BaseCRUDRepository):
     async def create_service(self,service_create:ServiceInCreate) -> Service:
-        new_service = Service(**service_create)
+        new_service = Service(**(service_create.dict()))
         self.async_session.add(instance=new_service)
         await self.async_session.commit()
         await self.async_session.refresh(instance=new_service)
+        return new_service
         
 
     async def read_services(self) -> typing.Sequence[Service]:
@@ -20,7 +21,7 @@ class ServiceCRUDRepository(BaseCRUDRepository):
         query = await self.async_session.execute(statement=stmt)
         return query.scalars().all()
 
-    async def read_service_by_id(self,id:str) -> Service:
+    async def read_service_by_id(self,id:int) -> Service:
         stmt = sqlalchemy.select(Service).where(Service.id == id)
         query = await self.async_session.execute(statement=stmt)
 

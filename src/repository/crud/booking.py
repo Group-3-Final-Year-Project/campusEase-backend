@@ -20,7 +20,7 @@ class BookingCRUDRepository(BaseCRUDRepository):
         query = await self.async_session.execute(statement=stmt)
         return query.scalars().all()
 
-    async def read_booking_by_id(self,id:str) -> Booking:
+    async def read_booking_by_id(self,id:int) -> Booking:
         stmt = sqlalchemy.select(Booking).where(Booking.id == id)
         query = await self.async_session.execute(statement=stmt)
 
@@ -28,12 +28,21 @@ class BookingCRUDRepository(BaseCRUDRepository):
             raise EntityDoesNotExist(f"Booking with id `{id}` does not exist!")
         return query.scalar()
 
-    async def read_bookings_by_name(self,name:str) -> typing.Sequence[Booking]:
-        stmt = sqlalchemy.select(Booking).where(name in Booking.name)
+    async def read_bookings_by_provider_id(self,provider_id:int) -> typing.Sequence[Booking]:
+        stmt = sqlalchemy.select(Booking).where(Booking.provider_id == provider_id)
         query = await self.async_session.execute(statement=stmt)
 
         if not query:
-            raise EntityDoesNotExist("Bookings with name `{name}` does not exist!".format(name=name)) 
+            raise EntityDoesNotExist(f"Bookings with provider id `{provider_id}` does not exist!") 
+        
+        return query.scalars().all()
+
+    async def read_bookings_by_user_id(self,user_id:int) -> typing.Sequence[Booking]:
+        stmt = sqlalchemy.select(Booking).where(Booking.user_id == user_id)
+        query = await self.async_session.execute(statement=stmt)
+
+        if not query:
+            raise EntityDoesNotExist(f"Bookings with user id `{user_id}` does not exist!") 
         
         return query.scalars().all()
 

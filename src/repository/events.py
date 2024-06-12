@@ -4,6 +4,7 @@ from sqlalchemy import event
 from sqlalchemy.dialects.postgresql.asyncpg import AsyncAdapt_asyncpg_connection
 from sqlalchemy.ext.asyncio import AsyncConnection, AsyncSessionTransaction
 from sqlalchemy.pool.base import _ConnectionRecord
+from sqlalchemy.sql import text
 
 from src.repository.database import async_db
 from src.repository.table import Base
@@ -28,6 +29,7 @@ def inspect_db_server_on_close(
 async def initialize_db_tables(connection: AsyncConnection) -> None:
     loguru.logger.info("Database Table Creation --- Initializing . . .")
 
+    await connection.execute(text("DROP TABLE IF EXISTS ACCOUNT CASCADE"))
     await connection.run_sync(Base.metadata.drop_all)
     await connection.run_sync(Base.metadata.create_all)
 

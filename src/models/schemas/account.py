@@ -37,6 +37,7 @@ class AccountInLogin(BaseSchemaModel):
 
 class AccountWithToken(BaseSchemaModel):
     token: str
+    id:int
     username: str
     email: pydantic.EmailStr
     phone_number:str | None
@@ -52,7 +53,7 @@ class AccountWithToken(BaseSchemaModel):
 
 
 class AccountInResponse(BaseSchemaModel):
-    id: int
+    token: str
     authorized_account: AccountWithToken
 
 

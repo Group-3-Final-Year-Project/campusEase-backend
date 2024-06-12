@@ -40,9 +40,10 @@ async def signup(
     access_token = jwt_generator.generate_access_token(account=new_account)
 
     return AccountInResponse(
-        id=new_account.id,
+        token=access_token,
         authorized_account=AccountWithToken(
-             token=access_token,
+            id=new_account.id,
+            token=access_token,
             username=new_account.username,
             email=new_account.email,  # type: ignore
             phone_number=new_account.phone_number,
@@ -78,9 +79,10 @@ async def signin(
     access_token = jwt_generator.generate_access_token(account=db_account)
 
     return AccountInResponse(
-        id=db_account.id,
+        token=access_token,
         authorized_account=AccountWithToken(
-             token=access_token,
+            id=db_account.id, 
+            token=access_token,
             username=db_account.username,
             email=db_account.email,  # type: ignore
             phone_number=db_account.phone_number,
@@ -164,9 +166,10 @@ async def validate_email_otp(account_id:int,otp:str,otp_token:str,account_repo: 
     access_token = jwt_generator.generate_access_token(account=db_account)
 
     return AccountInResponse(
-        id=db_account.id,
+        token=access_token,
         authorized_account=AccountWithToken(
-             token=access_token,
+            id=db_account.id,
+            token=access_token,
             username=db_account.username,
             email=db_account.email,  # type: ignore
             phone_number=db_account.phone_number,

@@ -10,10 +10,10 @@ from src.repository.table import Base
 class Service(Base):
     __tablename__ = 'service'
     
-    id:SQLAlchemyMapped[str] = sqlalchemy_mapped_column(primary_key=True)
-    provider_id:SQLAlchemyMapped[str] = sqlalchemy_mapped_column(sqlalchemy.ForeignKey("account.id"),nullable=False)
+    id:SQLAlchemyMapped[int] = sqlalchemy_mapped_column(primary_key=True,autoincrement=True)
+    provider_id:SQLAlchemyMapped[int] = sqlalchemy_mapped_column(sqlalchemy.ForeignKey("account.id"),nullable=False)
     name: SQLAlchemyMapped[str] = sqlalchemy_mapped_column(
-        sqlalchemy.String(length=100), nullable=False, unique=True
+        sqlalchemy.String(length=100), nullable=False
     )
     description: SQLAlchemyMapped[str] = sqlalchemy_mapped_column(sqlalchemy.Text(), nullable=True)
     category: SQLAlchemyMapped[str] = sqlalchemy_mapped_column(sqlalchemy.String(length=100), nullable=False)
@@ -34,5 +34,5 @@ class Service(Base):
     )
     # other attributes that we will need for service will be added here
 
-    provider = relationship("Account", backref="services")
+    account = relationship("Account", backref="service")
     __mapper_args__ = {"eager_defaults": True}

@@ -32,6 +32,23 @@ async def get_bookings(
     
     return db_booking_list
 
+@router.get(path="/providers/{provider_id}",name="bookings:read-bookings_by-provider-id",response_model=list[BookingInResponse])
+async def get_bookings_by_provider_id(provider_id:int,booking_repo:BookingCRUDRepository = fastapi.Depends(get_repository(repo_type=BookingCRUDRepository))) -> list[BookingInResponse]:
+    try:
+        db_bookings = await booking_repo.read_bookings_by_provider_id(provider_id=provider_id)
+    except EntityDoesNotExist:
+        raise await http_404_exc_id_not_found_request(id=provider_id)
+    
+    return db_bookings  
+
+@router.get(path="/users/{user_id}",name="bookings:read-bookings_by-user-id",response_model=list[BookingInResponse])
+async def get_bookings_by_user_id(user_id:int,booking_repo:BookingCRUDRepository = fastapi.Depends(get_repository(repo_type=BookingCRUDRepository))) -> list[BookingInResponse]:
+    try:
+        db_bookings = await booking_repo.read_bookings_by_user_id(user_id=user_id)
+    except EntityDoesNotExist:
+        raise await http_404_exc_id_not_found_request(id=user_id)
+    
+    return db_bookings  
 
 @router.get(path="/{id}",
     name="bookings:read-booking-by-id",

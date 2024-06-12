@@ -30,8 +30,9 @@ async def get_accounts(
     for db_account in db_accounts:
         access_token = jwt_generator.generate_access_token(account=db_account)
         account = AccountInResponse(
-            id=db_account.id,
+                token=access_token,
             authorized_account=AccountWithToken(
+                id=db_account.id,
                 token=access_token,
                 username=db_account.username,
                 email=db_account.email,  # type: ignore
@@ -70,9 +71,10 @@ async def get_account(
         raise await http_404_exc_id_not_found_request(id=id)
 
     return AccountInResponse(
-        id=db_account.id,
+        token=access_token,
         authorized_account=AccountWithToken(
-             token=access_token,
+            id=db_account.id,
+            token=access_token,
             username=db_account.username,
             email=db_account.email,  # type: ignore
             phone_number=db_account.phone_number,
@@ -115,9 +117,10 @@ async def update_account(
     access_token = jwt_generator.generate_access_token(account=updated_db_account)
 
     return AccountInResponse(
-        id=updated_db_account.id,
+        token=access_token,
         authorized_account=AccountWithToken(
             token=access_token,
+            id=updated_db_account.id,
             username=updated_db_account.username,
             user_type=updated_db_account.user_type,
             email=updated_db_account.email,  # type: ignore

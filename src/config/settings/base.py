@@ -53,6 +53,7 @@ class BackendBaseSettings(BaseSettings):
 
     IS_ALLOWED_CREDENTIALS: bool = decouple.config("IS_ALLOWED_CREDENTIALS", cast=bool)  # type: ignore
     ALLOWED_ORIGINS: list[str] = [
+        "http://10.132.74.36:8081",
         "http://localhost:3000",  # React default port
         "http://0.0.0.0:3000",
         "http://127.0.0.1:3000",  # React docker port
@@ -61,6 +62,8 @@ class BackendBaseSettings(BaseSettings):
         "http://0.0.0.0:5173",
         "http://127.0.0.1:5173",  # Qwik docker port
         "http://127.0.0.1:5174",
+        "http://127.0.0.1:8000",
+        "http://0.0.0.0"
     ]
     ALLOWED_METHODS: list[str] = ["*"]
     ALLOWED_HEADERS: list[str] = ["*"]
